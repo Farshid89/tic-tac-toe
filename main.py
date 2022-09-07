@@ -53,9 +53,11 @@ def get_user_input(player):
 
 
 print("Welcome to Tic-Tac_Toe Game")
+player1_name = input("Please enter first player name: ")
+player2_name = input("Please enter second player name: ")
 print(board())
-while game_is_on:
-    player1_choice = get_user_input("Player 1")
+while game_is_on and len(available_cells) > 0:
+    player1_choice = get_user_input(player1_name)
     available_cells.remove(player1_choice)
     player1_cells.append(player1_choice)
     board_map[player1_choice] = " O "
@@ -63,13 +65,15 @@ while game_is_on:
 
 # Check in Player 1 wins
     if check_winner(player1_cells):
-        print("Player 1 Won!")
+        print(f"{player1_name} Won!")
         game_is_on = False
-        print(f"Player 1 Cells: {player1_cells}")
+        print(f"{player1_name}'s Cells: {player1_cells}")
         break
-    print(f"Player 1 Cells: {player1_cells}")
+    print(f"{player1_name}'s Cells: {player1_cells}")
+    if len(available_cells) < 1:
+        break
 
-    player2_choice = get_user_input("Player 2")
+    player2_choice = get_user_input(player2_name)
     available_cells.remove(player2_choice)
     player2_cells.append(player2_choice)
     board_map[player2_choice] = " X "
@@ -77,8 +81,11 @@ while game_is_on:
 
     # Check in Player 2 wins
     if check_winner(player2_cells):
-        print("Player 2 Won!")
+        print(f"{player2_name} Won!")
         game_is_on = False
-        print(f"Player 2 Cells: {player2_cells}")
+        print(f"{player2_name}'s Cells: {player2_cells}")
         break
-    print(f"Player 2 Cells: {player2_cells}")
+    print(f"{player2_name}'s Cells: {player2_cells}")
+
+if len(available_cells) < 1:
+    print("DRAW!")
